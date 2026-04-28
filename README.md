@@ -118,7 +118,7 @@ CrabCode 由以下组件协作运行：
 ```bash
 # 1. 下载最新版本
 curl -fsSL -o /tmp/crabcode.tar.gz \
-  https://github.com/acosmi-crabcode/crabcode/releases/latest/download/crabcode-v1.3.22-darwin-arm64.tar.gz
+  https://github.com/acosmi-crabcode/crabcode/releases/latest/download/crabcode-v1.3.23-darwin-arm64.tar.gz
 
 # 2. 解压到本地
 mkdir -p ~/.local/share/crabcode
@@ -149,7 +149,7 @@ shasum -a 256 -c checksums-sha256.txt
 
 | 平台 | 状态 |
 |---|---|
-| macOS arm64 (Apple Silicon) | ✅ 已发布（v1.3.22） |
+| macOS arm64 (Apple Silicon) | ✅ 已发布（v1.3.23） |
 | macOS x64 (Intel) | 🚧 计划中 |
 | Linux arm64 | 🚧 计划中 |
 | Linux x64 | 🚧 计划中 |
@@ -290,7 +290,7 @@ All components communicate via local sockets — independently supervised, indep
 ```bash
 # 1. Download the latest release
 curl -fsSL -o /tmp/crabcode.tar.gz \
-  https://github.com/acosmi-crabcode/crabcode/releases/latest/download/crabcode-v1.3.22-darwin-arm64.tar.gz
+  https://github.com/acosmi-crabcode/crabcode/releases/latest/download/crabcode-v1.3.23-darwin-arm64.tar.gz
 
 # 2. Extract to your local share dir
 mkdir -p ~/.local/share/crabcode
@@ -321,7 +321,7 @@ shasum -a 256 -c checksums-sha256.txt
 
 | Platform | Status |
 |---|---|
-| macOS arm64 (Apple Silicon) | ✅ Released (v1.3.22) |
+| macOS arm64 (Apple Silicon) | ✅ Released (v1.3.23) |
 | macOS x64 (Intel) | 🚧 Planned |
 | Linux arm64 | 🚧 Planned |
 | Linux x64 | 🚧 Planned |
@@ -376,7 +376,7 @@ Run `/login` on first use to authenticate and claim your free token quota.
 
 ## 📜 Version
 
-Latest release: **v1.3.22** (released 2026-04-28)
+Latest release: **v1.3.23** (released 2026-04-28)
 
 Full changelog at [Releases](https://github.com/acosmi-crabcode/crabcode/releases).
 
