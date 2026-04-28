@@ -6,7 +6,7 @@
 **Terminal-native AI coding assistant · Multi-model · Multi-tool · Multi-context**
 
 [![Latest Release](https://img.shields.io/github/v/release/acosmi-crabcode/crabcode?display_name=tag&label=latest)](https://github.com/acosmi-crabcode/crabcode/releases)
-[![Platform](https://img.shields.io/badge/platform-macOS--arm64-blue)](#-安装--installation)
+[![Platform](https://img.shields.io/badge/platform-macOS--arm64%20%7C%20Windows--x64-blue)](#-安装--installation)
 [![Status](https://img.shields.io/badge/status-active-success)]()
 [![Issues](https://img.shields.io/github/issues/acosmi-crabcode/crabcode?label=issues)](https://github.com/acosmi-crabcode/crabcode/issues)
 
@@ -138,11 +138,44 @@ ln -sf ~/.local/share/crabcode/crabcode ~/.local/bin/crabcode
 crabcode
 ```
 
+### Windows (x64)
+
+```powershell
+# 用 PowerShell 执行
+$tmp = "$env:TEMP\crabcode.zip"
+$dst = "$env:LOCALAPPDATA\crabcode"
+Invoke-WebRequest `
+  -Uri "https://github.com/acosmi-crabcode/crabcode/releases/latest/download/crabcode-v1.3.23-windows-x64.zip" `
+  -OutFile $tmp
+Expand-Archive -Path $tmp -DestinationPath $dst -Force
+
+# 加入用户 PATH（注意子目录名需与 zip 顶层目录一致）
+$bin = (Get-ChildItem "$dst\crabcode-v1.3.23-windows-x64").FullName
+[Environment]::SetEnvironmentVariable(
+  "Path",
+  "$([Environment]::GetEnvironmentVariable('Path','User'));$bin",
+  "User"
+)
+
+# 重开 PowerShell 后启动
+crabcode
+```
+
+> ⚠️ Windows 版本暂不支持 **定时任务**（crabcode-cron）；调用 `crabcode cron *` 会提示"not yet supported on Windows"。其它功能（chat / 工具调用 / WebSearch / MCP）均完整可用。
+
 ### 校验文件完整性（可选）
 
 ```bash
-curl -fsSL -O https://github.com/acosmi-crabcode/crabcode/releases/latest/download/checksums-sha256.txt
-shasum -a 256 -c checksums-sha256.txt
+# macOS / Linux
+curl -fsSL -O https://github.com/acosmi-crabcode/crabcode/releases/latest/download/checksums-v1.3.23-sha256.txt
+shasum -a 256 -c checksums-v1.3.23-sha256.txt
+```
+
+```powershell
+# Windows PowerShell
+Invoke-WebRequest -Uri "https://github.com/acosmi-crabcode/crabcode/releases/latest/download/checksums-windows.txt" -OutFile checksums-windows.txt
+Get-Content checksums-windows.txt
+Get-FileHash crabcode-v1.3.23-windows-x64.zip -Algorithm SHA256
 ```
 
 ### 其它平台
@@ -150,10 +183,10 @@ shasum -a 256 -c checksums-sha256.txt
 | 平台 | 状态 |
 |---|---|
 | macOS arm64 (Apple Silicon) | ✅ 已发布（v1.3.23） |
+| Windows x64 | ✅ 已发布（v1.3.23，定时任务暂不可用） |
 | macOS x64 (Intel) | 🚧 计划中 |
 | Linux arm64 | 🚧 计划中 |
 | Linux x64 | 🚧 计划中 |
-| Windows x64 | 🚧 计划中 |
 
 > 在 [Issues](https://github.com/acosmi-crabcode/crabcode/issues) 留言可投票优先级。
 
@@ -310,11 +343,44 @@ ln -sf ~/.local/share/crabcode/crabcode ~/.local/bin/crabcode
 crabcode
 ```
 
+### Windows (x64)
+
+```powershell
+# Run in PowerShell
+$tmp = "$env:TEMP\crabcode.zip"
+$dst = "$env:LOCALAPPDATA\crabcode"
+Invoke-WebRequest `
+  -Uri "https://github.com/acosmi-crabcode/crabcode/releases/latest/download/crabcode-v1.3.23-windows-x64.zip" `
+  -OutFile $tmp
+Expand-Archive -Path $tmp -DestinationPath $dst -Force
+
+# Add to user PATH (subdirectory name must match the top-level dir inside the zip)
+$bin = (Get-ChildItem "$dst\crabcode-v1.3.23-windows-x64").FullName
+[Environment]::SetEnvironmentVariable(
+  "Path",
+  "$([Environment]::GetEnvironmentVariable('Path','User'));$bin",
+  "User"
+)
+
+# Reopen PowerShell, then:
+crabcode
+```
+
+> ⚠️ The Windows build does **not** include scheduled tasks (`crabcode-cron`) yet — calls to `crabcode cron *` will report "not yet supported on Windows". All other features (chat, tools, WebSearch, MCP) work fully.
+
 ### Verify file integrity (optional)
 
 ```bash
-curl -fsSL -O https://github.com/acosmi-crabcode/crabcode/releases/latest/download/checksums-sha256.txt
-shasum -a 256 -c checksums-sha256.txt
+# macOS / Linux
+curl -fsSL -O https://github.com/acosmi-crabcode/crabcode/releases/latest/download/checksums-v1.3.23-sha256.txt
+shasum -a 256 -c checksums-v1.3.23-sha256.txt
+```
+
+```powershell
+# Windows PowerShell
+Invoke-WebRequest -Uri "https://github.com/acosmi-crabcode/crabcode/releases/latest/download/checksums-windows.txt" -OutFile checksums-windows.txt
+Get-Content checksums-windows.txt
+Get-FileHash crabcode-v1.3.23-windows-x64.zip -Algorithm SHA256
 ```
 
 ### Other platforms
@@ -322,10 +388,10 @@ shasum -a 256 -c checksums-sha256.txt
 | Platform | Status |
 |---|---|
 | macOS arm64 (Apple Silicon) | ✅ Released (v1.3.23) |
+| Windows x64 | ✅ Released (v1.3.23, scheduled tasks not yet available) |
 | macOS x64 (Intel) | 🚧 Planned |
 | Linux arm64 | 🚧 Planned |
 | Linux x64 | 🚧 Planned |
-| Windows x64 | 🚧 Planned |
 
 > Comment on [Issues](https://github.com/acosmi-crabcode/crabcode/issues) to vote on priority.
 
