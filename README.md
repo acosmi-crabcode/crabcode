@@ -47,6 +47,9 @@
 | 模型 | 用途 |
 |---|---|
 | **DeepSeek v4 Flash** | 默认日常对话 / 代码生成（响应快、性价比高） |
+| **DeepSeek v4 Pro** | 进阶推理 / 复杂代码任务 |
+| **智谱 GLM-5.1** | 中文场景 / 多模态理解 |
+| **Kimi 2.6（256K）** | 超长上下文（最大 256K tokens） |
 | **通义千问 3.6 Plus** | 默认 fallback，国产替代路径 |
 | **Claude Opus / Sonnet / Haiku 系列** | 复杂推理 / 长上下文场景 |
 
@@ -216,6 +219,9 @@ No window switching, no copy-pasting. From code understanding and bug localizati
 | Model | Use case |
 |---|---|
 | **DeepSeek v4 Flash** | Default for daily coding & chat (fast, cost-effective) |
+| **DeepSeek v4 Pro** | Advanced reasoning / complex code tasks |
+| **Zhipu GLM-5.1** | Chinese-language / multimodal scenarios |
+| **Kimi 2.6 (256K)** | Ultra-long context (up to 256K tokens) |
 | **Qwen 3.6 Plus** | Default fallback, domestic alternative |
 | **Claude Opus / Sonnet / Haiku** | Complex reasoning · long-context scenarios |
 
