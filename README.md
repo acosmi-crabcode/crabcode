@@ -1,455 +1,446 @@
 <div align="center">
 
-# 🦀 CrabCode · 蟹码
+# CrabCode · 蟹码
 
-**终端原生的 AI 编程助手 · 多模型 · 多工具 · 多场景**
-**Terminal-native AI coding assistant · Multi-model · Multi-tool · Multi-context**
+**终端原生的 AI 编程助手**<br>
+**A terminal-native AI coding assistant**
 
-[![Latest Release](https://img.shields.io/github/v/release/acosmi-crabcode/crabcode?display_name=tag&label=latest)](https://github.com/acosmi-crabcode/crabcode/releases)
-[![Platform](https://img.shields.io/badge/platform-macOS--arm64%20%7C%20Windows--x64-blue)](#-安装--installation)
-[![Status](https://img.shields.io/badge/status-active-success)]()
-[![Issues](https://img.shields.io/github/issues/acosmi-crabcode/crabcode?label=issues)](https://github.com/acosmi-crabcode/crabcode/issues)
+[![Latest Release](https://img.shields.io/github/v/release/acosmi/crabcode?display_name=tag&label=latest)](https://github.com/acosmi/crabcode/releases/latest)
+[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-blue)](#当前发布)
+[![Status](https://img.shields.io/badge/status-active-success)](https://github.com/acosmi/crabcode/releases)
+[![Issues](https://img.shields.io/github/issues/acosmi/crabcode?label=issues)](https://github.com/acosmi/crabcode/issues)
 
-[简体中文](#-简介) · [English](#-overview)
+[简体中文](#简体中文) · [English](#english)
 
 </div>
 
 ---
 
-## 🎁 限时福利 · 5 月 31 日前免费领词元（Token） / Free Tokens Until May 31
+## 限时福利 · Free Tokens Until May 31
 
-> **🇨🇳 新用户注册即送词元（tk）福利包**，覆盖日常编码、对话、工具调用、思考全场景。
-> - 🌐 注册地址：<https://acosmi.com/zh>
-> - 🗓️ 活动截止：**2026 年 5 月 31 日**
-> - 💡 注册完成后在 CrabCode 中执行 `/login` 即开通词元额度
-> - 📈 老用户邀请新用户额外赠送词元
+> 新用户注册即送词元（tk）福利包，覆盖日常编码、对话、工具调用和思考模式。
 >
-> **🇬🇧 New users get a free token (tk) bundle on signup**, covering coding, chat, tool calls, and thinking modes.
-> - 🌐 Sign up at <https://acosmi.com/zh>
-> - 🗓️ Promotion ends: **May 31, 2026**
-> - 💡 After signup, run `/login` inside CrabCode to activate your quota
-> - 📈 Referring new users earns bonus tokens
+> New users receive a free token (tk) bundle for coding, chat, tool calls, and thinking modes.
+
+- 注册 / Sign up: <https://acosmi.com/zh>
+- 截止 / Ends: **2026-05-31**
+- 注册后在 CrabCode 中执行 `/login` 即可激活额度。
+- After signup, run `/login` inside CrabCode to activate your quota.
+- 老用户邀请新用户可额外获得词元奖励。
+- Existing users can earn bonus tokens by referring new users.
 
 ---
 
-# 🇨🇳 简体中文
+## 简体中文
 
-## 📖 简介
+### 简介
 
-**CrabCode（蟹码）** 是一款运行在终端的 AI 编程助手。它把主流大模型、代码工具、MCP 生态、IDE 联动整合进一个统一的命令行界面，专为开发者的真实工程场景设计。
+**CrabCode（蟹码）** 是一款运行在终端里的 AI 编程助手。它把模型调用、代码检索、文件编辑、Shell 执行、MCP 工具和 GitHub 工作流放进一个统一的命令行体验里，让开发者可以在当前工程目录内完成代码理解、排错、重构、测试生成和自动化任务。
 
-无需切换窗口、无需复制粘贴，从代码理解、bug 定位、批量重构到测试生成，所有工作都在 shell 里完成。
+这个公开仓库用于发布稳定安装包和面向用户的说明。最新版本为 **v1.3.33**，发布时间为 **2026-05-08 UTC**。
 
-## ✨ 核心特性
+### 当前发布
 
-### 🤖 多模型 · 多档思考
+| 平台 | 架构 | 发布包 |
+|---|---:|---|
+| macOS Apple Silicon | arm64 | `crabcode-1.3.33-darwin-arm64.tar.gz` |
+| macOS Intel | x64 | `crabcode-1.3.33-darwin-x64.tar.gz` |
+| Linux | arm64 | `crabcode-1.3.33-linux-arm64.tar.gz` |
+| Linux | x64 | `crabcode-1.3.33-linux-x64.tar.gz` |
+| Windows | x64 | `crabcode-1.3.33-win-x64.zip` |
 
-| 模型 | 用途 |
+所有发布包都在 [Releases](https://github.com/acosmi/crabcode/releases/latest) 页面提供，并附带 SHA-256 校验文件。
+
+### 核心能力
+
+- **终端原生 TUI**：全屏交互、流式输出、历史会话、主题和中英文界面。
+- **模型动态路由**：可用模型、能力和价格由 Acosmi SDK 动态下发；在客户端内使用 `/model` 查看和切换。
+- **工程级工具**：读取、写入、精确编辑、全文检索、Glob 匹配、沙盒化 Shell、Notebook 读写。
+- **MCP 生态**：支持配置和调用 Model Context Protocol 服务器，包括浏览器自动化、外部数据源和自定义工具。
+- **工作流增强**：Hooks、Skills、Plan Mode、权限管理、Git / GitHub 协作、跨会话记忆。
+- **定时任务**：`crabcode cron` 使用独立 Rust 调度守护进程，支持 macOS、Linux 和 Windows。
+
+### 架构状态
+
+CrabCode 当前是 **Rust 底层核心 + TypeScript 业务层**：
+
+| 组件 | 作用 |
 |---|---|
-| **DeepSeek v4 Flash** | 默认日常对话 / 代码生成（响应快、性价比高） |
-| **DeepSeek v4 Pro** | 进阶推理 / 复杂代码任务 |
-| **智谱 GLM-5.1** | 中文场景 / 多模态理解 |
-| **Kimi 2.6（256K）** | 超长上下文（最大 256K tokens） |
-| **通义千问 3.6 Plus** | 默认 fallback，国产替代路径 |
-| **Claude Opus / Sonnet / Haiku 系列** | 复杂推理 / 长上下文场景 |
+| `crabcode` | Rust CLI 启动器，解析高频参数并启动交互式客户端 |
+| `dist/index.js` | TypeScript 业务层，负责 TUI、agent loop、模型 SDK、MCP 和工具编排 |
+| `crabcode-cron` | Rust 定时任务守护进程；Unix 使用 socket，Windows 使用 Named Pipe |
+| `dist/vendor/ripgrep` | 随包内置的 ripgrep，用于高速代码搜索 |
 
-支持 **3 档思考模式**：
+历史 Hub / Go 守护进程路径已下线；模型与账户能力通过 `@acosmi/sdk-ts` 直连 Acosmi 网关。
 
-- 🟢 **关闭思考（Off）**——直接输出，适合简单问答
-- 🟡 **标准思考（High）**——平衡推理深度与速度
-- 🔴 **深度思考（Max）**——最大推理强度，适合架构设计、复杂排错
+### 安装
 
-`Tab` 键即可在档位间循环。
+#### macOS
 
-### 🛠️ 完备的代码工具集
+选择你的平台：
 
-- **文件操作**：Read / Write / Edit（精确字串替换 + 整文件改写）
-- **代码检索**：Glob 模式匹配 · Grep 内容搜索 · 路径感知的精准定位
-- **Shell 执行**：沙盒化 Bash，权限可控，背景任务支持
-- **任务编排**：多任务追踪、子智能体并行、计划模式
-- **Notebook**：Jupyter ipynb 完整读写
-
-### 🌐 联网与外部数据
-
-- 内置 **WebSearch** / **WebFetch** 工具
-- 网页内容自动提取 + 摘要
-- 实时检索保证信息新鲜度
-
-### 🔌 MCP 生态
-
-完整兼容 [Model Context Protocol](https://modelcontextprotocol.io)：
-
-- 🌐 浏览器自动化（页面交互 / 截图 / 表单填写）
-- 📧 Gmail / Calendar / Drive 等 Google 套件
-- 🗂️ 自定义 MCP server 零成本接入
-
-### 💼 工作流增强
-
-- **钩子（Hooks）**：在用户消息提交、工具调用前后注入自定义逻辑
-- **技能（Skills）**：项目级 / 用户级可调用的能力包
-- **跨会话记忆**：项目偏好、用户档案、反馈、外部参考四类持久化
-- **Git / GitHub** 集成：commit · PR 创建 · issue 管理一气呵成
-- **Plan Mode**：先策划后执行，避免破坏性误操作
-- **定时任务**：crabcode-cron 守护进程支持周期性任务调度
-
-### 🎨 终端原生体验
-
-- 全屏 TUI 渲染，支持鼠标滚轮 / 键盘翻页 / tmux 集成
-- 流式 token 输出，思考过程可视化
-- 中 / 英双语界面，可切换主题
-
-## 🏗️ 系统组成（顶层视图）
-
-CrabCode 由以下组件协作运行：
-
-| 组件 | 角色 |
-|---|---|
-| **CLI 入口** | 启动会话、解析命令、调度后端守护进程 |
-| **Hub 守护进程** | 模型路由、工具调用、流式响应、MCP 协议桥接 |
-| **Cron 守护进程** | 定时任务调度（独立守护，故障域隔离） |
-| **TUI 前端** | 终端渲染、流式显示、用户输入处理 |
-
-各组件以本地 socket 通信，独立守护、独立升级，故障域隔离。
-
-## 🚀 安装
-
-### macOS (Apple Silicon · M1/M2/M3/M4)
+- Apple Silicon: `darwin-arm64`
+- Intel: `darwin-x64`
 
 ```bash
-# 1. 下载最新版本
+VERSION=1.3.33
+PLATFORM=darwin-arm64
+
 curl -fsSL -o /tmp/crabcode.tar.gz \
-  https://github.com/acosmi-crabcode/crabcode/releases/latest/download/crabcode-v1.3.23-darwin-arm64.tar.gz
+  "https://github.com/acosmi/crabcode/releases/download/v${VERSION}/crabcode-${VERSION}-${PLATFORM}.tar.gz"
 
-# 2. 解压到本地
-mkdir -p ~/.local/share/crabcode
-tar -xzf /tmp/crabcode.tar.gz --strip-components=1 -C ~/.local/share/crabcode
+rm -rf "$HOME/.local/share/crabcode"
+mkdir -p "$HOME/.local/share/crabcode" "$HOME/.local/bin"
+tar -xzf /tmp/crabcode.tar.gz --strip-components=1 -C "$HOME/.local/share/crabcode"
 
-# 3. 去除 Gatekeeper 隔离（macOS 必需，否则首次启动会被拦下）
-xattr -dr com.apple.quarantine ~/.local/share/crabcode/
+xattr -dr com.apple.quarantine "$HOME/.local/share/crabcode" 2>/dev/null || true
+ln -sf "$HOME/.local/share/crabcode/crabcode" "$HOME/.local/bin/crabcode"
 
-# 4. 加入 PATH
-mkdir -p ~/.local/bin
-ln -sf ~/.local/share/crabcode/crabcode ~/.local/bin/crabcode
-
-# 如果 ~/.local/bin 不在 PATH，把这一行加进 ~/.zshrc 或 ~/.bashrc
-# export PATH="$HOME/.local/bin:$PATH"
-
-# 5. 启动
+crabcode --version
 crabcode
 ```
 
-### Windows (x64)
-
-```powershell
-# 用 PowerShell 执行
-$tmp = "$env:TEMP\crabcode.zip"
-$dst = "$env:LOCALAPPDATA\crabcode"
-Invoke-WebRequest `
-  -Uri "https://github.com/acosmi-crabcode/crabcode/releases/latest/download/crabcode-v1.3.23-windows-x64.zip" `
-  -OutFile $tmp
-Expand-Archive -Path $tmp -DestinationPath $dst -Force
-
-# 加入用户 PATH（注意子目录名需与 zip 顶层目录一致）
-$bin = (Get-ChildItem "$dst\crabcode-v1.3.23-windows-x64").FullName
-[Environment]::SetEnvironmentVariable(
-  "Path",
-  "$([Environment]::GetEnvironmentVariable('Path','User'));$bin",
-  "User"
-)
-
-# 重开 PowerShell 后启动
-crabcode
-```
-
-> ⚠️ Windows 版本暂不支持 **定时任务**（crabcode-cron）；调用 `crabcode cron *` 会提示"not yet supported on Windows"。其它功能（chat / 工具调用 / WebSearch / MCP）均完整可用。
-
-### 校验文件完整性（可选）
+如果 `~/.local/bin` 不在 `PATH` 中，把下面一行加入 `~/.zshrc` 或 `~/.bashrc` 后重新打开终端：
 
 ```bash
-# macOS / Linux
-curl -fsSL -O https://github.com/acosmi-crabcode/crabcode/releases/latest/download/checksums-v1.3.23-sha256.txt
-shasum -a 256 -c checksums-v1.3.23-sha256.txt
+export PATH="$HOME/.local/bin:$PATH"
 ```
+
+#### Linux
+
+选择你的平台：
+
+- x64: `linux-x64`
+- arm64: `linux-arm64`
+
+```bash
+VERSION=1.3.33
+PLATFORM=linux-x64
+
+curl -fsSL -o /tmp/crabcode.tar.gz \
+  "https://github.com/acosmi/crabcode/releases/download/v${VERSION}/crabcode-${VERSION}-${PLATFORM}.tar.gz"
+
+rm -rf "$HOME/.local/share/crabcode"
+mkdir -p "$HOME/.local/share/crabcode" "$HOME/.local/bin"
+tar -xzf /tmp/crabcode.tar.gz --strip-components=1 -C "$HOME/.local/share/crabcode"
+ln -sf "$HOME/.local/share/crabcode/crabcode" "$HOME/.local/bin/crabcode"
+
+crabcode --version
+crabcode
+```
+
+#### Windows
+
+在 PowerShell 中执行：
 
 ```powershell
-# Windows PowerShell
-Invoke-WebRequest -Uri "https://github.com/acosmi-crabcode/crabcode/releases/latest/download/checksums-windows.txt" -OutFile checksums-windows.txt
-Get-Content checksums-windows.txt
-Get-FileHash crabcode-v1.3.23-windows-x64.zip -Algorithm SHA256
+$Version = "1.3.33"
+$Package = "crabcode-$Version-win-x64"
+$Zip = "$env:TEMP\$Package.zip"
+$InstallRoot = "$env:LOCALAPPDATA\crabcode"
+$Bin = Join-Path $InstallRoot $Package
+
+Invoke-WebRequest `
+  -Uri "https://github.com/acosmi/crabcode/releases/download/v$Version/$Package.zip" `
+  -OutFile $Zip
+
+Remove-Item $Bin -Recurse -Force -ErrorAction SilentlyContinue
+New-Item -ItemType Directory -Force -Path $InstallRoot | Out-Null
+Expand-Archive -Path $Zip -DestinationPath $InstallRoot -Force
+
+$CurrentPath = [Environment]::GetEnvironmentVariable("Path", "User")
+if (($CurrentPath -split ";") -notcontains $Bin) {
+  [Environment]::SetEnvironmentVariable("Path", "$CurrentPath;$Bin", "User")
+}
+
+& "$Bin\crabcode.exe" --version
 ```
 
-### 其它平台
+重新打开 PowerShell 后运行：
 
-| 平台 | 状态 |
-|---|---|
-| macOS arm64 (Apple Silicon) | ✅ 已发布（v1.3.23） |
-| Windows x64 | ✅ 已发布（v1.3.23，定时任务暂不可用） |
-| macOS x64 (Intel) | 🚧 计划中 |
-| Linux arm64 | 🚧 计划中 |
-| Linux x64 | 🚧 计划中 |
+```powershell
+crabcode
+```
 
-> 在 [Issues](https://github.com/acosmi-crabcode/crabcode/issues) 留言可投票优先级。
+### 校验文件完整性
 
-## ⚡ 快速上手
+在已下载发布包的目录中执行：
 
-启动会话：
+```bash
+curl -fsSL -O https://github.com/acosmi/crabcode/releases/download/v1.3.33/checksums-sha256.txt
+shasum -a 256 -c checksums-sha256.txt
+```
+
+Linux 也可以使用：
+
+```bash
+sha256sum -c checksums-sha256.txt
+```
+
+Windows 可下载 Windows 专用校验文件后对比：
+
+```powershell
+Invoke-WebRequest `
+  -Uri "https://github.com/acosmi/crabcode/releases/download/v1.3.33/checksums-windows.txt" `
+  -OutFile checksums-windows.txt
+
+Get-Content checksums-windows.txt
+Get-FileHash crabcode-1.3.33-win-x64.zip -Algorithm SHA256
+```
+
+### 快速上手
 
 ```bash
 crabcode               # 进入交互式 TUI
-crabcode --help        # 查看所有命令
-crabcode --version     # 查看当前版本
+crabcode -p "解释当前目录的代码结构"
+crabcode --help
+crabcode --version
 ```
 
-第一次启动执行 `/login` 完成账号认证，同时领取免费词元额度。
+第一次使用请在 TUI 中执行 `/login` 完成账号认证。
 
-### 常用斜杠命令
+常用命令：
 
 | 命令 | 用途 |
 |---|---|
-| `/login` | 账号登录 / 切换 |
-| `/model` | 切换模型 |
+| `/login` | 登录或切换账号 |
+| `/model` | 查看和切换可用模型 |
 | `/clear` | 清空当前会话上下文 |
 | `/history` | 查看历史会话 |
-| `/permissions` | 查看 / 修改工具权限 |
-| `/help` | 帮助 |
+| `/permissions` | 查看或修改工具权限 |
+| `/help` | 打开帮助 |
 
-### 常用快捷键
+常用快捷键：
 
 | 操作 | 按键 |
 |---|---|
 | 切换思考档位 | `Tab` |
 | 中断当前任务 | `Esc` |
 | 翻阅历史 | `↑` / `↓` |
-| 滚动屏幕 | `PgUp` / `PgDn`（或鼠标滚轮） |
+| 滚动屏幕 | `PgUp` / `PgDn` 或鼠标滚轮 |
 | 退出 | 连续按两次 `Ctrl+C` |
 
-## 🐛 反馈与支持
+### 数据与隐私
 
-- **Bug / 建议**：[https://github.com/acosmi-crabcode/crabcode/issues](https://github.com/acosmi-crabcode/crabcode/issues)
-- **官方网站**：<https://acosmi.com/zh>
-- **词元活动 / 账户问题**：登录账户后台或在 CrabCode 中执行 `/help`
+- 用户配置、认证状态、历史和本地记忆默认保存在 `~/.crabcode/`。
+- 工具执行默认受权限控制；文件和 Shell 操作需要按目录授权。
+- 模型请求经由 Acosmi 网关转发到上游模型服务；具体可用模型和额度以账号状态为准。
 
-## 🔒 隐私与本地化
+### 反馈与支持
 
-- 所有用户数据（认证信息、历史、设置）保存在本机 `~/.crabcode/`
-- 模型对话经由 Acosmi 网关转发到上游模型供应商，不留存对话内容
-- 工具执行（Bash / 文件操作）默认沙盒化，可按目录粒度授权
+- Bug / 建议: <https://github.com/acosmi/crabcode/issues>
+- 最新发布: <https://github.com/acosmi/crabcode/releases/latest>
+- 官方网站: <https://acosmi.com/zh>
+- 账号和词元问题：登录账户后台，或在 CrabCode 中执行 `/help`。
 
 ---
 
-# 🇬🇧 English
+## English
 
-## 📖 Overview
+### Overview
 
-**CrabCode** is a terminal-native AI coding assistant. It unifies leading large language models, a complete code-tool suite, the MCP ecosystem, and IDE integration into a single command-line interface — purpose-built for real engineering workflows.
+**CrabCode** is a terminal-native AI coding assistant. It brings model access, code search, file editing, shell execution, MCP tools, and GitHub workflows into one command-line experience, so you can understand code, debug, refactor, generate tests, and automate engineering tasks from the project directory you are already in.
 
-No window switching, no copy-pasting. From code understanding and bug localization to batch refactors and test generation, everything happens in your shell.
+This public repository hosts stable release packages and user-facing documentation. The latest release is **v1.3.33**, published on **2026-05-08 UTC**.
 
-## ✨ Core Features
+### Current Release
 
-### 🤖 Multi-Model · Multi-Level Thinking
+| Platform | Architecture | Asset |
+|---|---:|---|
+| macOS Apple Silicon | arm64 | `crabcode-1.3.33-darwin-arm64.tar.gz` |
+| macOS Intel | x64 | `crabcode-1.3.33-darwin-x64.tar.gz` |
+| Linux | arm64 | `crabcode-1.3.33-linux-arm64.tar.gz` |
+| Linux | x64 | `crabcode-1.3.33-linux-x64.tar.gz` |
+| Windows | x64 | `crabcode-1.3.33-win-x64.zip` |
 
-| Model | Use case |
-|---|---|
-| **DeepSeek v4 Flash** | Default for daily coding & chat (fast, cost-effective) |
-| **DeepSeek v4 Pro** | Advanced reasoning / complex code tasks |
-| **Zhipu GLM-5.1** | Chinese-language / multimodal scenarios |
-| **Kimi 2.6 (256K)** | Ultra-long context (up to 256K tokens) |
-| **Qwen 3.6 Plus** | Default fallback, domestic alternative |
-| **Claude Opus / Sonnet / Haiku** | Complex reasoning · long-context scenarios |
+All packages are available on the [latest release](https://github.com/acosmi/crabcode/releases/latest) page with SHA-256 checksum files.
 
-3 thinking levels:
+### Core Features
 
-- 🟢 **Off** — direct output, ideal for quick questions
-- 🟡 **High** — balanced depth and speed
-- 🔴 **Max** — maximum reasoning strength for architecture, deep debugging
+- **Terminal-native TUI**: fullscreen interaction, streaming output, session history, themes, and English / Chinese UI.
+- **Dynamic model routing**: available models, capabilities, and pricing are provided dynamically by the Acosmi SDK; use `/model` in the client to inspect and switch.
+- **Engineering tools**: read, write, exact edit, full-text search, Glob matching, sandboxed Shell, and Notebook read/write.
+- **MCP ecosystem**: configure and call Model Context Protocol servers for browser automation, external data, and custom tools.
+- **Workflow support**: Hooks, Skills, Plan Mode, permissions, Git / GitHub collaboration, and cross-session memory.
+- **Scheduled tasks**: `crabcode cron` uses an independent Rust scheduler daemon on macOS, Linux, and Windows.
 
-Cycle with `Tab`.
+### Architecture Status
 
-### 🛠️ Complete Code Toolkit
-
-- **File ops**: Read / Write / Edit (exact string replace + full rewrite)
-- **Code search**: Glob pattern matching · Grep content search · path-aware navigation
-- **Shell execution**: sandboxed Bash with permission control and background task support
-- **Task orchestration**: multi-task tracking, parallel sub-agents, plan mode
-- **Notebook**: full Jupyter ipynb read/write
-
-### 🌐 Web & External Data
-
-- Built-in **WebSearch** / **WebFetch**
-- Automatic web content extraction + summarization
-- Real-time search for fresh information
-
-### 🔌 MCP Ecosystem
-
-Full [Model Context Protocol](https://modelcontextprotocol.io) compatibility:
-
-- 🌐 Browser automation (page interaction / screenshots / form filling)
-- 📧 Gmail / Calendar / Drive and other Google suite
-- 🗂️ Zero-cost integration of custom MCP servers
-
-### 💼 Workflow Enhancements
-
-- **Hooks**: inject custom logic before/after user messages and tool calls
-- **Skills**: project-scoped / user-scoped capability packs
-- **Cross-session memory**: 4 categories — project, user, feedback, references
-- **Git / GitHub integration**: commit · PR creation · issue management in one flow
-- **Plan Mode**: plan first, execute later — avoid destructive mistakes
-- **Scheduled tasks**: crabcode-cron daemon for periodic job scheduling
-
-### 🎨 Terminal-Native Experience
-
-- Fullscreen TUI with mouse / keyboard / tmux support
-- Streaming token output with visible thinking
-- Bilingual UI (EN/CN), themeable
-
-## 🏗️ System Composition (Top-Level)
-
-CrabCode runs as a coordinated set of components:
+CrabCode currently uses a **Rust core + TypeScript product layer**:
 
 | Component | Role |
 |---|---|
-| **CLI entrypoint** | Session launch, command parsing, daemon orchestration |
-| **Hub daemon** | Model routing, tool dispatch, streaming responses, MCP bridging |
-| **Cron daemon** | Scheduled job runner (isolated process for fault containment) |
-| **TUI frontend** | Terminal rendering, streaming display, user input |
+| `crabcode` | Rust CLI launcher that parses high-frequency flags and starts the interactive client |
+| `dist/index.js` | TypeScript layer for TUI, agent loop, model SDK, MCP, and tool orchestration |
+| `crabcode-cron` | Rust scheduled-task daemon; Unix socket on macOS/Linux, Named Pipe on Windows |
+| `dist/vendor/ripgrep` | Bundled ripgrep binary for fast code search |
 
-All components communicate via local sockets — independently supervised, independently upgradable, with isolated failure domains.
+The historical Hub / Go daemon path has been retired; model and account capabilities go through `@acosmi/sdk-ts` and the Acosmi gateway.
 
-## 🚀 Installation
+### Installation
 
-### macOS (Apple Silicon · M1/M2/M3/M4)
+#### macOS
+
+Choose your platform:
+
+- Apple Silicon: `darwin-arm64`
+- Intel: `darwin-x64`
 
 ```bash
-# 1. Download the latest release
+VERSION=1.3.33
+PLATFORM=darwin-arm64
+
 curl -fsSL -o /tmp/crabcode.tar.gz \
-  https://github.com/acosmi-crabcode/crabcode/releases/latest/download/crabcode-v1.3.23-darwin-arm64.tar.gz
+  "https://github.com/acosmi/crabcode/releases/download/v${VERSION}/crabcode-${VERSION}-${PLATFORM}.tar.gz"
 
-# 2. Extract to your local share dir
-mkdir -p ~/.local/share/crabcode
-tar -xzf /tmp/crabcode.tar.gz --strip-components=1 -C ~/.local/share/crabcode
+rm -rf "$HOME/.local/share/crabcode"
+mkdir -p "$HOME/.local/share/crabcode" "$HOME/.local/bin"
+tar -xzf /tmp/crabcode.tar.gz --strip-components=1 -C "$HOME/.local/share/crabcode"
 
-# 3. Remove Gatekeeper quarantine attribute (required on macOS)
-xattr -dr com.apple.quarantine ~/.local/share/crabcode/
+xattr -dr com.apple.quarantine "$HOME/.local/share/crabcode" 2>/dev/null || true
+ln -sf "$HOME/.local/share/crabcode/crabcode" "$HOME/.local/bin/crabcode"
 
-# 4. Add to your PATH
-mkdir -p ~/.local/bin
-ln -sf ~/.local/share/crabcode/crabcode ~/.local/bin/crabcode
-
-# Add this line to ~/.zshrc or ~/.bashrc if ~/.local/bin is not in PATH:
-# export PATH="$HOME/.local/bin:$PATH"
-
-# 5. Launch
+crabcode --version
 crabcode
 ```
 
-### Windows (x64)
-
-```powershell
-# Run in PowerShell
-$tmp = "$env:TEMP\crabcode.zip"
-$dst = "$env:LOCALAPPDATA\crabcode"
-Invoke-WebRequest `
-  -Uri "https://github.com/acosmi-crabcode/crabcode/releases/latest/download/crabcode-v1.3.23-windows-x64.zip" `
-  -OutFile $tmp
-Expand-Archive -Path $tmp -DestinationPath $dst -Force
-
-# Add to user PATH (subdirectory name must match the top-level dir inside the zip)
-$bin = (Get-ChildItem "$dst\crabcode-v1.3.23-windows-x64").FullName
-[Environment]::SetEnvironmentVariable(
-  "Path",
-  "$([Environment]::GetEnvironmentVariable('Path','User'));$bin",
-  "User"
-)
-
-# Reopen PowerShell, then:
-crabcode
-```
-
-> ⚠️ The Windows build does **not** include scheduled tasks (`crabcode-cron`) yet — calls to `crabcode cron *` will report "not yet supported on Windows". All other features (chat, tools, WebSearch, MCP) work fully.
-
-### Verify file integrity (optional)
+If `~/.local/bin` is not in `PATH`, add this to `~/.zshrc` or `~/.bashrc`, then reopen your terminal:
 
 ```bash
-# macOS / Linux
-curl -fsSL -O https://github.com/acosmi-crabcode/crabcode/releases/latest/download/checksums-v1.3.23-sha256.txt
-shasum -a 256 -c checksums-v1.3.23-sha256.txt
+export PATH="$HOME/.local/bin:$PATH"
 ```
+
+#### Linux
+
+Choose your platform:
+
+- x64: `linux-x64`
+- arm64: `linux-arm64`
+
+```bash
+VERSION=1.3.33
+PLATFORM=linux-x64
+
+curl -fsSL -o /tmp/crabcode.tar.gz \
+  "https://github.com/acosmi/crabcode/releases/download/v${VERSION}/crabcode-${VERSION}-${PLATFORM}.tar.gz"
+
+rm -rf "$HOME/.local/share/crabcode"
+mkdir -p "$HOME/.local/share/crabcode" "$HOME/.local/bin"
+tar -xzf /tmp/crabcode.tar.gz --strip-components=1 -C "$HOME/.local/share/crabcode"
+ln -sf "$HOME/.local/share/crabcode/crabcode" "$HOME/.local/bin/crabcode"
+
+crabcode --version
+crabcode
+```
+
+#### Windows
+
+Run in PowerShell:
 
 ```powershell
-# Windows PowerShell
-Invoke-WebRequest -Uri "https://github.com/acosmi-crabcode/crabcode/releases/latest/download/checksums-windows.txt" -OutFile checksums-windows.txt
-Get-Content checksums-windows.txt
-Get-FileHash crabcode-v1.3.23-windows-x64.zip -Algorithm SHA256
+$Version = "1.3.33"
+$Package = "crabcode-$Version-win-x64"
+$Zip = "$env:TEMP\$Package.zip"
+$InstallRoot = "$env:LOCALAPPDATA\crabcode"
+$Bin = Join-Path $InstallRoot $Package
+
+Invoke-WebRequest `
+  -Uri "https://github.com/acosmi/crabcode/releases/download/v$Version/$Package.zip" `
+  -OutFile $Zip
+
+Remove-Item $Bin -Recurse -Force -ErrorAction SilentlyContinue
+New-Item -ItemType Directory -Force -Path $InstallRoot | Out-Null
+Expand-Archive -Path $Zip -DestinationPath $InstallRoot -Force
+
+$CurrentPath = [Environment]::GetEnvironmentVariable("Path", "User")
+if (($CurrentPath -split ";") -notcontains $Bin) {
+  [Environment]::SetEnvironmentVariable("Path", "$CurrentPath;$Bin", "User")
+}
+
+& "$Bin\crabcode.exe" --version
 ```
 
-### Other platforms
+Reopen PowerShell, then run:
 
-| Platform | Status |
-|---|---|
-| macOS arm64 (Apple Silicon) | ✅ Released (v1.3.23) |
-| Windows x64 | ✅ Released (v1.3.23, scheduled tasks not yet available) |
-| macOS x64 (Intel) | 🚧 Planned |
-| Linux arm64 | 🚧 Planned |
-| Linux x64 | 🚧 Planned |
+```powershell
+crabcode
+```
 
-> Comment on [Issues](https://github.com/acosmi-crabcode/crabcode/issues) to vote on priority.
+### Verify File Integrity
 
-## ⚡ Quick Start
+Run this in the directory where you downloaded the release packages:
+
+```bash
+curl -fsSL -O https://github.com/acosmi/crabcode/releases/download/v1.3.33/checksums-sha256.txt
+shasum -a 256 -c checksums-sha256.txt
+```
+
+On Linux you can also use:
+
+```bash
+sha256sum -c checksums-sha256.txt
+```
+
+For Windows:
+
+```powershell
+Invoke-WebRequest `
+  -Uri "https://github.com/acosmi/crabcode/releases/download/v1.3.33/checksums-windows.txt" `
+  -OutFile checksums-windows.txt
+
+Get-Content checksums-windows.txt
+Get-FileHash crabcode-1.3.33-win-x64.zip -Algorithm SHA256
+```
+
+### Quick Start
 
 ```bash
 crabcode               # Interactive TUI
-crabcode --help        # All commands
-crabcode --version     # Current version
+crabcode -p "Explain this repository"
+crabcode --help
+crabcode --version
 ```
 
-Run `/login` on first use to authenticate and claim your free token quota.
+On first use, run `/login` inside the TUI to authenticate your account.
 
-### Common slash commands
+Common slash commands:
 
 | Command | Purpose |
 |---|---|
-| `/login` | Sign in / switch account |
-| `/model` | Switch model |
+| `/login` | Sign in or switch account |
+| `/model` | Inspect and switch available models |
 | `/clear` | Clear current session context |
 | `/history` | View past sessions |
-| `/permissions` | View / modify tool permissions |
-| `/help` | Help |
+| `/permissions` | View or change tool permissions |
+| `/help` | Open help |
 
-### Common shortcuts
+Common shortcuts:
 
 | Action | Key |
 |---|---|
 | Cycle thinking level | `Tab` |
 | Interrupt current task | `Esc` |
 | History up/down | `↑` / `↓` |
-| Scroll screen | `PgUp` / `PgDn` (or mouse wheel) |
+| Scroll screen | `PgUp` / `PgDn` or mouse wheel |
 | Quit | `Ctrl+C` twice |
 
-## 🐛 Feedback & Support
+### Data & Privacy
 
-- **Bug / suggestion**: [https://github.com/acosmi-crabcode/crabcode/issues](https://github.com/acosmi-crabcode/crabcode/issues)
-- **Official site**: <https://acosmi.com/zh>
-- **Token / account issues**: log into your account dashboard, or run `/help` inside CrabCode
+- User configuration, auth state, history, and local memory are stored under `~/.crabcode/` by default.
+- Tool execution is permission-gated by default; file and Shell access are authorized per directory.
+- Model requests are routed through the Acosmi gateway to upstream model services; available models and quota depend on account status.
 
-## 🔒 Privacy & Local-First
+### Feedback & Support
 
-- All user data (credentials, history, settings) stays on your machine in `~/.crabcode/`
-- Model traffic is routed via the Acosmi gateway to upstream providers — **conversation content is not stored**
-- Tool execution (Bash / file ops) is sandboxed by default, with per-directory authorization
-
----
-
-## 📜 Version
-
-Latest release: **v1.3.23** (released 2026-04-28)
-
-Full changelog at [Releases](https://github.com/acosmi-crabcode/crabcode/releases).
+- Bugs / suggestions: <https://github.com/acosmi/crabcode/issues>
+- Latest release: <https://github.com/acosmi/crabcode/releases/latest>
+- Official site: <https://acosmi.com/zh>
+- Account and token issues: use your account dashboard, or run `/help` inside CrabCode.
 
 ---
 
 <div align="center">
 
-**🦀 Crafted by Acosmi · 2026**
+**CrabCode · Crafted by Acosmi · 2026**
 
 </div>
