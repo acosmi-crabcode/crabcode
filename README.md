@@ -141,6 +141,7 @@ $Version = "1.3.33"
 $Package = "crabcode-$Version-win-x64"
 $Zip = "$env:TEMP\$Package.zip"
 $InstallRoot = "$env:LOCALAPPDATA\crabcode"
+$LegacyRoot = "$env:LOCALAPPDATA\CrabCode"
 $Bin = Join-Path $InstallRoot $Package
 
 Invoke-WebRequest `
@@ -151,19 +152,29 @@ Remove-Item $Bin -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force -Path $InstallRoot | Out-Null
 Expand-Archive -Path $Zip -DestinationPath $InstallRoot -Force
 
-$CurrentPath = [Environment]::GetEnvironmentVariable("Path", "User")
-if (($CurrentPath -split ";") -notcontains $Bin) {
-  [Environment]::SetEnvironmentVariable("Path", "$CurrentPath;$Bin", "User")
+function Remove-CrabCodePathEntries {
+  param([string]$PathValue)
+  @($PathValue -split ";" | Where-Object {
+    $Entry = $_.Trim()
+    $Entry -and
+      ($Entry -ine $InstallRoot) -and
+      ($Entry -ine $LegacyRoot) -and
+      ($Entry -inotlike "$InstallRoot\crabcode-*") -and
+      ($Entry -inotlike "$LegacyRoot\crabcode-*")
+  })
 }
 
-& "$Bin\crabcode.exe" --version
-```
+$UserPath = Remove-CrabCodePathEntries ([Environment]::GetEnvironmentVariable("Path", "User"))
+[Environment]::SetEnvironmentVariable("Path", (($UserPath + $Bin) -join ";"), "User")
 
-重新打开 PowerShell 后运行：
+$ProcessPath = Remove-CrabCodePathEntries $env:Path
+$env:Path = (($ProcessPath + $Bin) -join ";")
 
-```powershell
+crabcode --version
 crabcode
 ```
+
+安装完成后，当前 PowerShell 和新打开的 PowerShell 都可以直接运行 `crabcode`。
 
 #### 覆盖更新已安装版本
 
@@ -196,6 +207,7 @@ $Version = "1.3.33"
 $Package = "crabcode-$Version-win-x64"
 $Zip = "$env:TEMP\$Package.zip"
 $InstallRoot = "$env:LOCALAPPDATA\crabcode"
+$LegacyRoot = "$env:LOCALAPPDATA\CrabCode"
 $Bin = Join-Path $InstallRoot $Package
 
 Invoke-WebRequest `
@@ -206,16 +218,28 @@ Remove-Item $Bin -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force -Path $InstallRoot | Out-Null
 Expand-Archive -Path $Zip -DestinationPath $InstallRoot -Force
 
-$OldPath = [Environment]::GetEnvironmentVariable("Path", "User")
-$Keep = ($OldPath -split ";") | Where-Object {
-  $_ -and ($_ -notlike "$InstallRoot\crabcode-*")
+function Remove-CrabCodePathEntries {
+  param([string]$PathValue)
+  @($PathValue -split ";" | Where-Object {
+    $Entry = $_.Trim()
+    $Entry -and
+      ($Entry -ine $InstallRoot) -and
+      ($Entry -ine $LegacyRoot) -and
+      ($Entry -inotlike "$InstallRoot\crabcode-*") -and
+      ($Entry -inotlike "$LegacyRoot\crabcode-*")
+  })
 }
-[Environment]::SetEnvironmentVariable("Path", (($Keep + $Bin) -join ";"), "User")
 
-& "$Bin\crabcode.exe" --version
+$UserPath = Remove-CrabCodePathEntries ([Environment]::GetEnvironmentVariable("Path", "User"))
+[Environment]::SetEnvironmentVariable("Path", (($UserPath + $Bin) -join ";"), "User")
+
+$ProcessPath = Remove-CrabCodePathEntries $env:Path
+$env:Path = (($ProcessPath + $Bin) -join ";")
+
+crabcode --version
 ```
 
-更新前请退出正在运行的 CrabCode；Windows 更新后重新打开 PowerShell 让新的 `PATH` 生效。
+更新前请退出正在运行的 CrabCode；更新完成后，当前 PowerShell 和新打开的 PowerShell 都会使用新版本。
 
 ### 校验文件完整性
 
@@ -236,11 +260,15 @@ Windows 可下载 Windows 专用校验文件后对比：
 
 ```powershell
 Invoke-WebRequest `
-  -Uri "https://github.com/acosmi/crabcode/releases/download/v1.3.33/checksums-windows.txt" `
-  -OutFile checksums-windows.txt
+  -Uri "https://github.com/acosmi/crabcode/releases/download/v1.3.33/checksums-sha256.txt" `
+  -OutFile checksums-sha256.txt
 
-Get-Content checksums-windows.txt
-Get-FileHash crabcode-1.3.33-win-x64.zip -Algorithm SHA256
+$Expected = (Select-String -Path checksums-sha256.txt -Pattern "crabcode-1.3.33-win-x64.zip").Line.Split()[0].ToLower()
+$Actual = (Get-FileHash crabcode-1.3.33-win-x64.zip -Algorithm SHA256).Hash.ToLower()
+if ($Expected -ne $Actual) {
+  throw "SHA256 mismatch: expected $Expected, got $Actual"
+}
+"SHA256 OK: $Actual"
 ```
 
 ### 快速上手
@@ -400,6 +428,7 @@ $Version = "1.3.33"
 $Package = "crabcode-$Version-win-x64"
 $Zip = "$env:TEMP\$Package.zip"
 $InstallRoot = "$env:LOCALAPPDATA\crabcode"
+$LegacyRoot = "$env:LOCALAPPDATA\CrabCode"
 $Bin = Join-Path $InstallRoot $Package
 
 Invoke-WebRequest `
@@ -410,19 +439,29 @@ Remove-Item $Bin -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force -Path $InstallRoot | Out-Null
 Expand-Archive -Path $Zip -DestinationPath $InstallRoot -Force
 
-$CurrentPath = [Environment]::GetEnvironmentVariable("Path", "User")
-if (($CurrentPath -split ";") -notcontains $Bin) {
-  [Environment]::SetEnvironmentVariable("Path", "$CurrentPath;$Bin", "User")
+function Remove-CrabCodePathEntries {
+  param([string]$PathValue)
+  @($PathValue -split ";" | Where-Object {
+    $Entry = $_.Trim()
+    $Entry -and
+      ($Entry -ine $InstallRoot) -and
+      ($Entry -ine $LegacyRoot) -and
+      ($Entry -inotlike "$InstallRoot\crabcode-*") -and
+      ($Entry -inotlike "$LegacyRoot\crabcode-*")
+  })
 }
 
-& "$Bin\crabcode.exe" --version
-```
+$UserPath = Remove-CrabCodePathEntries ([Environment]::GetEnvironmentVariable("Path", "User"))
+[Environment]::SetEnvironmentVariable("Path", (($UserPath + $Bin) -join ";"), "User")
 
-Reopen PowerShell, then run:
+$ProcessPath = Remove-CrabCodePathEntries $env:Path
+$env:Path = (($ProcessPath + $Bin) -join ";")
 
-```powershell
+crabcode --version
 crabcode
 ```
+
+After the block completes, `crabcode` works in this PowerShell window and in newly opened PowerShell windows.
 
 #### Update an Existing Installation
 
@@ -455,6 +494,7 @@ $Version = "1.3.33"
 $Package = "crabcode-$Version-win-x64"
 $Zip = "$env:TEMP\$Package.zip"
 $InstallRoot = "$env:LOCALAPPDATA\crabcode"
+$LegacyRoot = "$env:LOCALAPPDATA\CrabCode"
 $Bin = Join-Path $InstallRoot $Package
 
 Invoke-WebRequest `
@@ -465,16 +505,28 @@ Remove-Item $Bin -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force -Path $InstallRoot | Out-Null
 Expand-Archive -Path $Zip -DestinationPath $InstallRoot -Force
 
-$OldPath = [Environment]::GetEnvironmentVariable("Path", "User")
-$Keep = ($OldPath -split ";") | Where-Object {
-  $_ -and ($_ -notlike "$InstallRoot\crabcode-*")
+function Remove-CrabCodePathEntries {
+  param([string]$PathValue)
+  @($PathValue -split ";" | Where-Object {
+    $Entry = $_.Trim()
+    $Entry -and
+      ($Entry -ine $InstallRoot) -and
+      ($Entry -ine $LegacyRoot) -and
+      ($Entry -inotlike "$InstallRoot\crabcode-*") -and
+      ($Entry -inotlike "$LegacyRoot\crabcode-*")
+  })
 }
-[Environment]::SetEnvironmentVariable("Path", (($Keep + $Bin) -join ";"), "User")
 
-& "$Bin\crabcode.exe" --version
+$UserPath = Remove-CrabCodePathEntries ([Environment]::GetEnvironmentVariable("Path", "User"))
+[Environment]::SetEnvironmentVariable("Path", (($UserPath + $Bin) -join ";"), "User")
+
+$ProcessPath = Remove-CrabCodePathEntries $env:Path
+$env:Path = (($ProcessPath + $Bin) -join ";")
+
+crabcode --version
 ```
 
-Exit running CrabCode sessions before updating. On Windows, reopen PowerShell after the update so the new `PATH` takes effect.
+Exit running CrabCode sessions before updating. After the update, this PowerShell window and newly opened PowerShell windows use the new version.
 
 ### Verify File Integrity
 
@@ -495,11 +547,15 @@ For Windows:
 
 ```powershell
 Invoke-WebRequest `
-  -Uri "https://github.com/acosmi/crabcode/releases/download/v1.3.33/checksums-windows.txt" `
-  -OutFile checksums-windows.txt
+  -Uri "https://github.com/acosmi/crabcode/releases/download/v1.3.33/checksums-sha256.txt" `
+  -OutFile checksums-sha256.txt
 
-Get-Content checksums-windows.txt
-Get-FileHash crabcode-1.3.33-win-x64.zip -Algorithm SHA256
+$Expected = (Select-String -Path checksums-sha256.txt -Pattern "crabcode-1.3.33-win-x64.zip").Line.Split()[0].ToLower()
+$Actual = (Get-FileHash crabcode-1.3.33-win-x64.zip -Algorithm SHA256).Hash.ToLower()
+if ($Expected -ne $Actual) {
+  throw "SHA256 mismatch: expected $Expected, got $Actual"
+}
+"SHA256 OK: $Actual"
 ```
 
 ### Quick Start
