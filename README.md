@@ -123,6 +123,9 @@ curl -fsSL -o /tmp/crabcode.tar.gz \
 rm -rf "$HOME/.local/share/crabcode"
 mkdir -p "$HOME/.local/share/crabcode" "$HOME/.local/bin"
 tar -xzf /tmp/crabcode.tar.gz --strip-components=1 -C "$HOME/.local/share/crabcode"
+if command -v xattr >/dev/null 2>&1; then
+  xattr -dr com.apple.quarantine "$HOME/.local/share/crabcode" 2>/dev/null || true
+fi
 ln -sf "$HOME/.local/share/crabcode/crabcode" "$HOME/.local/bin/crabcode"
 
 crabcode --version
@@ -161,6 +164,58 @@ if (($CurrentPath -split ";") -notcontains $Bin) {
 ```powershell
 crabcode
 ```
+
+#### 覆盖更新已安装版本
+
+覆盖更新只替换程序文件，不会删除本地配置、登录状态、历史记录和记忆数据。不要删除 `~/.crabcode/`。
+
+macOS / Linux 使用同一安装目录，重新执行对应平台的安装命令即可覆盖旧版本：
+
+```bash
+VERSION=1.3.33
+PLATFORM=darwin-arm64  # macOS Intel 改为 darwin-x64；Linux 改为 linux-x64 或 linux-arm64
+
+curl -fsSL -o /tmp/crabcode.tar.gz \
+  "https://github.com/acosmi/crabcode/releases/download/v${VERSION}/crabcode-${VERSION}-${PLATFORM}.tar.gz"
+
+rm -rf "$HOME/.local/share/crabcode"
+mkdir -p "$HOME/.local/share/crabcode" "$HOME/.local/bin"
+tar -xzf /tmp/crabcode.tar.gz --strip-components=1 -C "$HOME/.local/share/crabcode"
+if command -v xattr >/dev/null 2>&1; then
+  xattr -dr com.apple.quarantine "$HOME/.local/share/crabcode" 2>/dev/null || true
+fi
+ln -sf "$HOME/.local/share/crabcode/crabcode" "$HOME/.local/bin/crabcode"
+
+crabcode --version
+```
+
+Windows 安装目录带版本号，更新时需要把用户 `PATH` 中旧的 `crabcode-*` 目录替换为新版本目录：
+
+```powershell
+$Version = "1.3.33"
+$Package = "crabcode-$Version-win-x64"
+$Zip = "$env:TEMP\$Package.zip"
+$InstallRoot = "$env:LOCALAPPDATA\crabcode"
+$Bin = Join-Path $InstallRoot $Package
+
+Invoke-WebRequest `
+  -Uri "https://github.com/acosmi/crabcode/releases/download/v$Version/$Package.zip" `
+  -OutFile $Zip
+
+Remove-Item $Bin -Recurse -Force -ErrorAction SilentlyContinue
+New-Item -ItemType Directory -Force -Path $InstallRoot | Out-Null
+Expand-Archive -Path $Zip -DestinationPath $InstallRoot -Force
+
+$OldPath = [Environment]::GetEnvironmentVariable("Path", "User")
+$Keep = ($OldPath -split ";") | Where-Object {
+  $_ -and ($_ -notlike "$InstallRoot\crabcode-*")
+}
+[Environment]::SetEnvironmentVariable("Path", (($Keep + $Bin) -join ";"), "User")
+
+& "$Bin\crabcode.exe" --version
+```
+
+更新前请退出正在运行的 CrabCode；Windows 更新后重新打开 PowerShell 让新的 `PATH` 生效。
 
 ### 校验文件完整性
 
@@ -327,6 +382,9 @@ curl -fsSL -o /tmp/crabcode.tar.gz \
 rm -rf "$HOME/.local/share/crabcode"
 mkdir -p "$HOME/.local/share/crabcode" "$HOME/.local/bin"
 tar -xzf /tmp/crabcode.tar.gz --strip-components=1 -C "$HOME/.local/share/crabcode"
+if command -v xattr >/dev/null 2>&1; then
+  xattr -dr com.apple.quarantine "$HOME/.local/share/crabcode" 2>/dev/null || true
+fi
 ln -sf "$HOME/.local/share/crabcode/crabcode" "$HOME/.local/bin/crabcode"
 
 crabcode --version
@@ -365,6 +423,58 @@ Reopen PowerShell, then run:
 ```powershell
 crabcode
 ```
+
+#### Update an Existing Installation
+
+An update only replaces application files. It does not remove local config, auth state, history, or memory data. Do not delete `~/.crabcode/`.
+
+On macOS / Linux, reinstall into the same application directory to overwrite the old version:
+
+```bash
+VERSION=1.3.33
+PLATFORM=darwin-arm64  # Use darwin-x64 for Intel macOS; linux-x64 or linux-arm64 for Linux
+
+curl -fsSL -o /tmp/crabcode.tar.gz \
+  "https://github.com/acosmi/crabcode/releases/download/v${VERSION}/crabcode-${VERSION}-${PLATFORM}.tar.gz"
+
+rm -rf "$HOME/.local/share/crabcode"
+mkdir -p "$HOME/.local/share/crabcode" "$HOME/.local/bin"
+tar -xzf /tmp/crabcode.tar.gz --strip-components=1 -C "$HOME/.local/share/crabcode"
+if command -v xattr >/dev/null 2>&1; then
+  xattr -dr com.apple.quarantine "$HOME/.local/share/crabcode" 2>/dev/null || true
+fi
+ln -sf "$HOME/.local/share/crabcode/crabcode" "$HOME/.local/bin/crabcode"
+
+crabcode --version
+```
+
+On Windows, the install directory includes the version number, so update the user `PATH` to replace old `crabcode-*` directories with the new one:
+
+```powershell
+$Version = "1.3.33"
+$Package = "crabcode-$Version-win-x64"
+$Zip = "$env:TEMP\$Package.zip"
+$InstallRoot = "$env:LOCALAPPDATA\crabcode"
+$Bin = Join-Path $InstallRoot $Package
+
+Invoke-WebRequest `
+  -Uri "https://github.com/acosmi/crabcode/releases/download/v$Version/$Package.zip" `
+  -OutFile $Zip
+
+Remove-Item $Bin -Recurse -Force -ErrorAction SilentlyContinue
+New-Item -ItemType Directory -Force -Path $InstallRoot | Out-Null
+Expand-Archive -Path $Zip -DestinationPath $InstallRoot -Force
+
+$OldPath = [Environment]::GetEnvironmentVariable("Path", "User")
+$Keep = ($OldPath -split ";") | Where-Object {
+  $_ -and ($_ -notlike "$InstallRoot\crabcode-*")
+}
+[Environment]::SetEnvironmentVariable("Path", (($Keep + $Bin) -join ";"), "User")
+
+& "$Bin\crabcode.exe" --version
+```
+
+Exit running CrabCode sessions before updating. On Windows, reopen PowerShell after the update so the new `PATH` takes effect.
 
 ### Verify File Integrity
 
