@@ -140,6 +140,14 @@ crabcode
 
 运行交互式 TUI 时请使用 **Windows Terminal** 或新版 PowerShell 窗口，并从普通用户目录启动，例如 `C:\Users\you\Desktop>`。老式 CMD/命令提示符，尤其是管理员窗口里的 `C:\Windows\System32>`，可能出现程序已启动但界面不刷新、黑屏或只显示光标的现象；这不是安装包损坏。若必须使用旧 CMD，先执行 `chcp 65001`，并在命令提示符属性中关闭 legacy console / 旧版控制台模式。
 
+中国大陆网络推荐使用镜像安装命令。可以直接粘贴到 CMD 或 PowerShell 中执行：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; iex ((New-Object Net.WebClient).DownloadString('https://updates.acosmi.com/crabcode/install-win-1.3.33.ps1?v=4'))"
+```
+
+如果镜像不可用，再使用下面的 GitHub 原始下载命令：
+
 ```powershell
 $Version = "1.3.33"
 $Package = "crabcode-$Version-win-x64"
@@ -430,6 +438,14 @@ Run this in **PowerShell**, not in Command Prompt/CMD. A correct prompt usually 
 `win-x64` works on both Intel and AMD 64-bit Windows devices.
 
 Run the interactive TUI in **Windows Terminal** or a modern PowerShell window, and start it from a normal user directory such as `C:\Users\you\Desktop>`. Legacy Command Prompt/CMD, especially an elevated `C:\Windows\System32>` window, may make the app look frozen, blank, or show only a cursor even though the executable has started. This is not a corrupt installation. If you must use legacy CMD, run `chcp 65001` first and disable legacy console mode in Command Prompt properties.
+
+For networks where GitHub is slow or unstable, use the mirror installer. This one-liner can be pasted into either CMD or PowerShell:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; iex ((New-Object Net.WebClient).DownloadString('https://updates.acosmi.com/crabcode/install-win-1.3.33.ps1?v=4'))"
+```
+
+If the mirror is unavailable, use the original GitHub download commands below:
 
 ```powershell
 $Version = "1.3.33"
