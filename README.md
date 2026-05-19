@@ -138,6 +138,8 @@ crabcode
 
 `win-x64` 适用于 Intel 和 AMD 的 64 位 Windows 设备。
 
+运行交互式 TUI 时请使用 **Windows Terminal** 或新版 PowerShell 窗口，并从普通用户目录启动，例如 `C:\Users\you\Desktop>`。老式 CMD/命令提示符，尤其是管理员窗口里的 `C:\Windows\System32>`，可能出现程序已启动但界面不刷新、黑屏或只显示光标的现象；这不是安装包损坏。若必须使用旧 CMD，先执行 `chcp 65001`，并在命令提示符属性中关闭 legacy console / 旧版控制台模式。
+
 ```powershell
 $Version = "1.3.33"
 $Package = "crabcode-$Version-win-x64"
@@ -426,6 +428,8 @@ crabcode
 Run this in **PowerShell**, not in Command Prompt/CMD. A correct prompt usually starts with `PS `, for example `PS C:\Users\you>`. If you see `C:\Windows\System32>` and get `'$Version' is not recognized as an internal or external command`, you are in CMD; open PowerShell first, or type `powershell` in CMD before running the commands.
 
 `win-x64` works on both Intel and AMD 64-bit Windows devices.
+
+Run the interactive TUI in **Windows Terminal** or a modern PowerShell window, and start it from a normal user directory such as `C:\Users\you\Desktop>`. Legacy Command Prompt/CMD, especially an elevated `C:\Windows\System32>` window, may make the app look frozen, blank, or show only a cursor even though the executable has started. This is not a corrupt installation. If you must use legacy CMD, run `chcp 65001` first and disable legacy console mode in Command Prompt properties.
 
 ```powershell
 $Version = "1.3.33"
