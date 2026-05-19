@@ -134,7 +134,9 @@ crabcode
 
 #### Windows
 
-在 PowerShell 中执行：
+在 **PowerShell** 中执行，不要粘贴到 CMD/命令提示符。正确提示符通常以 `PS ` 开头，例如 `PS C:\Users\you>`；如果看到 `C:\Windows\System32>` 并报 `'$Version' 不是内部或外部命令`，说明当前在 CMD 中，需要先打开 PowerShell，或在 CMD 中输入 `powershell` 后再执行。
+
+`win-x64` 适用于 Intel 和 AMD 的 64 位 Windows 设备。
 
 ```powershell
 $Version = "1.3.33"
@@ -200,7 +202,7 @@ ln -sf "$HOME/.local/share/crabcode/crabcode" "$HOME/.local/bin/crabcode"
 crabcode --version
 ```
 
-Windows 安装目录带版本号，更新时需要把用户 `PATH` 中旧的 `crabcode-*` 目录替换为新版本目录：
+Windows 安装目录带版本号，更新时需要把用户 `PATH` 中旧的 `crabcode-*` 目录替换为新版本目录。以下命令仍然必须在 **PowerShell** 中执行，不要粘贴到 CMD/命令提示符：
 
 ```powershell
 $Version = "1.3.33"
@@ -421,7 +423,9 @@ crabcode
 
 #### Windows
 
-Run in PowerShell:
+Run this in **PowerShell**, not in Command Prompt/CMD. A correct prompt usually starts with `PS `, for example `PS C:\Users\you>`. If you see `C:\Windows\System32>` and get `'$Version' is not recognized as an internal or external command`, you are in CMD; open PowerShell first, or type `powershell` in CMD before running the commands.
+
+`win-x64` works on both Intel and AMD 64-bit Windows devices.
 
 ```powershell
 $Version = "1.3.33"
@@ -487,7 +491,7 @@ ln -sf "$HOME/.local/share/crabcode/crabcode" "$HOME/.local/bin/crabcode"
 crabcode --version
 ```
 
-On Windows, the install directory includes the version number, so update the user `PATH` to replace old `crabcode-*` directories with the new one:
+On Windows, the install directory includes the version number, so update the user `PATH` to replace old `crabcode-*` directories with the new one. Run the following commands in **PowerShell**, not in Command Prompt/CMD:
 
 ```powershell
 $Version = "1.3.33"
